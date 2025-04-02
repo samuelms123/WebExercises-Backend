@@ -1,11 +1,11 @@
 import {addUser, findUserById, listAllUsers} from '../models/user-model.js';
 
-const getUser = (req, res) => {
-  res.json(listAllUsers());
+const getUsers = async (req, res) => {
+  res.json(await listAllUsers());
 };
 
-const getUserById = (req, res) => {
-  const user = findUserById(req.params.id);
+const getUserById = async (req, res) => {
+  const user = await findUserById(req.params.id);
   if (user) {
     res.json(user);
   } else {
@@ -13,8 +13,8 @@ const getUserById = (req, res) => {
   }
 };
 
-const postUser = (req, res) => {
-  const result = addUser(req.body);
+const postUser = async (req, res) => {
+  const result = await addUser(req.body);
   if (result.user_id) {
     res.status(201);
     res.json({message: 'New user added.', result});
@@ -33,4 +33,4 @@ const deleteUser = (req, res) => {
   res.sendStatus(200);
 };
 
-export {getUser, getUserById, postUser, putUser, deleteUser};
+export {getUsers, getUserById, postUser, putUser, deleteUser};
