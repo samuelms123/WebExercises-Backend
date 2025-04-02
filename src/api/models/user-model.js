@@ -19,16 +19,10 @@ const findUserById = async (id) => {
 };
 
 const addUser = async (user) => {
-  //const {name, username, email, password, role} = user;
+  const {name, username, email, password, role} = user;
   const sql = `INSERT INTO wsk_users (name, username, email, password, role)
                VALUES (?, ?, ?, ?, ?)`;
-  const params = [
-    user.name,
-    user.username,
-    user.email,
-    user.password,
-    user.role,
-  ];
+  const params = [name, username, email, password, role];
   const rows = await promisePool.execute(sql, params);
   console.log('rows', rows);
   if (rows[0].affectedRows === 0) {
@@ -37,4 +31,15 @@ const addUser = async (user) => {
   return {user_id: rows[0].insertId};
 };
 
-export {listAllUsers, findUserById, addUser};
+const login = async (user) => {
+  const sql = `SELECT * FROM wsk_users WHERE username = ?`;
+
+  const [rows] = await promisePool.execute(sql, [user]);
+  console.log('rows', rows);
+  if (rows.length === 0) {
+    return false;
+  }
+  return rows[0];
+};
+
+export {listAllUsers, findUserById, addUser, login};

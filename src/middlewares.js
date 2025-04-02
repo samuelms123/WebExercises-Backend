@@ -1,4 +1,5 @@
 import sharp from 'sharp';
+import 'dotenv/config';
 
 const createThumbnail = async (req, res, next) => {
   console.log('todo: tee kuvankäsittely', req.file);
