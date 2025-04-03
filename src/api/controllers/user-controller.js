@@ -1,4 +1,10 @@
-import {addUser, findUserById, listAllUsers} from '../models/user-model.js';
+import {
+  addUser,
+  findUserById,
+  listAllUsers,
+  modifyUser,
+  removeUser,
+} from '../models/user-model.js';
 import bcrypt from 'bcrypt';
 
 const getUsers = async (req, res) => {
@@ -25,14 +31,18 @@ const postUser = async (req, res) => {
   }
 };
 
-const putUser = (req, res) => {
-  // not implemented in this example, this is future homework
-  res.sendStatus(200);
+const putUser = async (req, res) => {
+  const result = await modifyUser(req.body, req.params.id);
+  if (result) {
+    res.sendStatus(200);
+  }
 };
 
-const deleteUser = (req, res) => {
-  // not implemented in this example, this is future homework
-  res.sendStatus(200);
+const deleteUser = async (req, res) => {
+  const result = await removeUser(req.params.id);
+  if (result) {
+    res.sendStatus(200);
+  }
 };
 
 export {getUsers, getUserById, postUser, putUser, deleteUser};

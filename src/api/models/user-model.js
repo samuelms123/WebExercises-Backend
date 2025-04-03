@@ -31,6 +31,31 @@ const addUser = async (user) => {
   return {user_id: rows[0].insertId};
 };
 
+const modifyUser = async (user, id) => {
+  const sql = promisePool.format(`UPDATE wsk_users SET ? WHERE user_id = ?`, [
+    user,
+    id,
+  ]);
+  const rows = await promisePool.execute(sql);
+  console.log('rows', rows);
+  if (rows[0].affectedRows === 0) {
+    return false;
+  }
+  return {message: 'success'};
+};
+
+const removeUser = async (id) => {
+  const [rows] = await promisePool.execute(
+    'DELETE FROM wsk_users WHERE user_id = ?',
+    [id]
+  );
+  console.log('rows', rows);
+  if (rows.affectedRows === 0) {
+    return false;
+  }
+  return {message: 'success'};
+};
+
 const login = async (user) => {
   const sql = `SELECT * FROM wsk_users WHERE username = ?`;
 
@@ -42,4 +67,4 @@ const login = async (user) => {
   return rows[0];
 };
 
-export {listAllUsers, findUserById, addUser, login};
+export {listAllUsers, findUserById, addUser, login, modifyUser, removeUser};
