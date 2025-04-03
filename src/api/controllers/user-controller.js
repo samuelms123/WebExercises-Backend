@@ -32,14 +32,18 @@ const postUser = async (req, res) => {
 };
 
 const putUser = async (req, res) => {
-  const result = await modifyUser(req.body, req.params.id);
+  const role = res.locals.user.role;
+  const userId = res.locals.user.user_id;
+  const result = await modifyUser(req.body, req.params.id, role, userId);
   if (result) {
     res.sendStatus(200);
   }
 };
 
 const deleteUser = async (req, res) => {
-  const result = await removeUser(req.params.id);
+  const role = res.locals.user.role;
+  const userId = res.locals.user.user_id;
+  const result = await removeUser(req.params.id, role, userId);
   if (result) {
     res.sendStatus(200);
   }

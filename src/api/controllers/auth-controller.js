@@ -2,6 +2,15 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {login} from '../models/user-model.js';
 
+const getMe = async (req, res) => {
+  console.log('getMe', res.locals.user);
+  if (res.locals.user) {
+    res.json({message: 'token ok', user: res.locals.user});
+  } else {
+    res.sendStatus(401);
+  }
+};
+
 const authUser = async (req, res) => {
   const result = await login(req.body.username);
 
@@ -29,4 +38,4 @@ const authUser = async (req, res) => {
   res.json({user: userWithNoPassword, token});
 };
 
-export {authUser};
+export {authUser, getMe};

@@ -3,7 +3,7 @@ POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "username":"sms",
+    "username":"testiadmin",
     "password":"123"
 }
 
@@ -15,3 +15,11 @@ Content-Type: application/json
     "username":"sms",
     "password":"1234"
 }
+
+### Get my user info
+GET http://localhost:3000/api/v1/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MiwibmFtZSI6InNhbXVlbCIsInVzZXJuYW1lIjoic21zIiwiZW1haWwiOiJlbWFpbC5lbWFpbEBlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQzNjY4MjMxLCJleHAiOjE3NDM3NTQ2MzF9.eBIieXzaW-m8Pw8HgOpOGHhUj93REvmx2sVhTgq5GwY
+
+### Check cat ownership
+PUT http://localhost:3000/api/v1/cats/48
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MiwibmFtZSI6InNhbXVlbCIsInVzZXJuYW1lIjoic21zIiwiZW1haWwiOiJlbWFpbC5lbWFpbEBlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQzNjY4MjMxLCJleHAiOjE3NDM3NTQ2MzF9.eBIieXzaW-m8Pw8HgOpOGHhUj93REvmx2sVhTgq5GwY
