@@ -8,7 +8,11 @@ import {
   getCatByOwner,
 } from '../controllers/cat-controller.js';
 import multer from 'multer';
-import createThumbnail from '../../middlewares.js';
+import {
+  authenticateToken,
+  checkCatOwner,
+  createThumbnail,
+} from '../../middlewares.js';
 
 const catRouter = express.Router();
 
@@ -19,7 +23,11 @@ catRouter
   .get(getCats)
   .post(upload.single('file'), createThumbnail, postCat);
 
-catRouter.route('/:id').get(getCatById).put(putCat).delete(deleteCat);
+catRouter
+  .route('/:id')
+  .get(getCatById)
+  .put(authenticateToken, checkCatOwner, putCat)
+  .delete(authenticateToken, checkCatOwner, deleteCat);
 
 catRouter.route('/owner/:id').get(getCatByOwner);
 
